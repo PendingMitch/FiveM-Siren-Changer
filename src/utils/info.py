@@ -4,7 +4,7 @@ import configparser
 
 def init():
     global file_path
-    file_path = join(getcwd(),'..', 'Sirens')
+    file_path = join(getcwd(), 'Sirens')
 
     global file_end
     file_end = "RESIDENT.rpf"
