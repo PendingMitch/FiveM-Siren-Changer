@@ -4,7 +4,7 @@ from utils.files import filesInDirectory, importSiren
 import utils.info as info
 
 from os.path import join as joinPath
-from os import system
+from subprocess import run
 
 if __name__ == "__main__":
     info.init()
@@ -16,4 +16,4 @@ if __name__ == "__main__":
         siren_path = joinPath(info.file_path, folder, info.file_end)
         fixArchive(siren_path)
         importSiren(siren_path)
-        system(info.fivem_exe)
+        run(info.fivem_exe)
