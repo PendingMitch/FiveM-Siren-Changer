@@ -14,7 +14,6 @@ if __name__ == "__main__":
 
     if folder != False:
         siren_path = joinPath(info.file_path, folder, info.file_end)
-        print(siren_path)
         fixArchive(siren_path)
         importSiren(siren_path)
         system(info.fivem_exe)
