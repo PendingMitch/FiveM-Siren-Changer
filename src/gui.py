@@ -1,10 +1,11 @@
 import tkinter
+from os import getcwd
 
 def createInput(array):
     global root
     root = tkinter.Tk()
-    root.title('PendingMitch - SIREN CHANGER')
-
+    root.title('PendingMitch - SIREN CHANGER - 2CalRP')
+    root.iconbitmap(getcwd() + '\\icon.ico')
     root.geometry(setToMiddleOfScreen(root, 500, 100))
 
     variable = tkinter.StringVar(root)
