@@ -1,10 +1,11 @@
-from os import getcwd
-from os.path import join
+from os import getcwd, sep, pardir
+from os.path import join, normpath
 import configparser
 
 def init():
     global file_path
-    file_path = join(getcwd(), 'Sirens')
+    parent_directory = normpath(getcwd() + sep + pardir)
+    file_path = join(parent_directory, 'Sirens')
 
     global file_end
     file_end = "RESIDENT.rpf"
