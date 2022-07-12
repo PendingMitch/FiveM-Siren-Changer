@@ -1,21 +1,38 @@
 import tkinter
+from tkinter import ttk
 from os import getcwd
 
-def createInput(array):
+from os.path import join as joinPath
+from subprocess import run
+import utils.info as info
+from utils.files import importSiren, filesInDirectory
+from utils.archivefix import fixArchive
+
+def createInput():
     global root
     root = tkinter.Tk()
-    root.title('PendingMitch - SIREN CHANGER - 2CalRP')
+    root.title(info.TITLE)
     root.iconbitmap(getcwd() + '\\icon.ico')
-    root.geometry(setToMiddleOfScreen(root, 500, 100))
+    root.geometry(setToMiddleOfScreen(root, info.WIDTH, info.HEIGHT))
 
-    variable = tkinter.StringVar(root)
-    variable.set(array[0])
+    tkinter.Label(text="").pack() # whitespace
+    array = filesInDirectory(info.file_path, info.file_end)
+    global drop_down
+    drop_down = ttk.Combobox(root, value=array)
+    drop_down.current(0)
+    drop_down.pack()
+
+    print(drop_down.current())
     
-    drop_down = tkinter.OptionMenu(root, variable, *array).pack()
-    button = tkinter.Button(root, text="OK", command=root.destroy).pack()
-    root.mainloop()
+    tkinter.Label(text="").pack() # whitespace
+    refresh_button = tkinter.Button(root, text="Refresh", command=updateList).pack()
+    tkinter.Label(text="").pack() # whitespace
 
-    return variable.get()
+    ok_button = tkinter.Button(root, text="Confirm", command=confirmSelection).pack()
+    cancel_button = tkinter.Button(root, text="Cancel", command=exit).pack()
+    
+    root.mainloop()
+    return "Window destroyed"
 
 
 def setToMiddleOfScreen(root, w, h):
@@ -31,3 +48,51 @@ def setToMiddleOfScreen(root, w, h):
     # set the dimensions of the screen
     # and where it is placed
     return ('%dx%d+%d+%d' % (w, h, x, y))
+
+def updateList():
+    # check if the drop down exists
+    try:
+        drop_down
+    except:
+        raise TypeError("The drop down menu is missing.")
+        exit()
+    
+    # check if the drop down is the right type
+    if type(drop_down) != ttk.Combobox: 
+        raise TypeError("The drop down menu is not in the corect format.")
+        exit()
+        
+
+    drop_down['values'] = filesInDirectory(info.file_path, info.file_end)
+    drop_down.current(0)
+
+def confirmSelection():
+    # check if the drop down exists
+    try:
+        drop_down
+    except:
+        raise TypeError("The drop down menu is missing.")
+        exit()
+    
+    # check if the drop down is the right type
+    if type(drop_down) != ttk.Combobox: 
+        raise TypeError("The drop down menu is not in the corect format.")
+        exit()
+
+
+    folder = drop_down['values'][drop_down.current()]
+    print(folder)
+
+    try: 
+        folder
+    except:
+        raise TypeError("The input failed.")
+        exit()
+    
+    root.destroy()
+
+    
+    siren_path = joinPath(info.file_path, folder, info.file_end)
+    fixArchive(siren_path)
+    importSiren(siren_path)
+    run(info.fivem_exe)

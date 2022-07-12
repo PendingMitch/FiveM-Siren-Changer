@@ -20,3 +20,10 @@ def init():
 
     global resident_rpf_location
     resident_rpf_location = join(cfg.get('Config', 'gta_dir'),"x64\\audio\sfx\\RESIDENT.rpf")
+
+
+    global WIDTH, HEIGHT
+    WIDTH, HEIGHT = 500, 185
+
+    global TITLE
+    TITLE = 'PendingMitch#2180 - Siren Changer'
