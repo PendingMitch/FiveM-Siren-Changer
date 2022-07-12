@@ -8,6 +8,8 @@ import utils.info as info
 from utils.files import importSiren, filesInDirectory
 from utils.archivefix import fixArchive
 
+
+
 def createInput():
     global root
     root = tkinter.Tk()
@@ -18,7 +20,7 @@ def createInput():
     tkinter.Label(text="").pack() # whitespace
     array = filesInDirectory(info.file_path, info.file_end)
     global drop_down
-    drop_down = ttk.Combobox(root, value=array)
+    drop_down = ttk.Combobox(root, value=array, width=40)
     drop_down.current(0)
     drop_down.pack()
 
@@ -29,7 +31,7 @@ def createInput():
     tkinter.Label(text="").pack() # whitespace
 
     ok_button = tkinter.Button(root, text="Confirm", command=confirmSelection).pack()
-    cancel_button = tkinter.Button(root, text="Cancel", command=exit).pack()
+    cancel_button = tkinter.Button(root, text="Cancel", command=closeProgram).pack()
     
     root.mainloop()
     return "Window destroyed"
@@ -55,12 +57,12 @@ def updateList():
         drop_down
     except:
         raise TypeError("The drop down menu is missing.")
-        exit()
+        closeProgram()
     
     # check if the drop down is the right type
     if type(drop_down) != ttk.Combobox: 
         raise TypeError("The drop down menu is not in the corect format.")
-        exit()
+        closeProgram()
         
 
     drop_down['values'] = filesInDirectory(info.file_path, info.file_end)
@@ -72,12 +74,12 @@ def confirmSelection():
         drop_down
     except:
         raise TypeError("The drop down menu is missing.")
-        exit()
+        closeProgram()
     
     # check if the drop down is the right type
     if type(drop_down) != ttk.Combobox: 
         raise TypeError("The drop down menu is not in the corect format.")
-        exit()
+        closeProgram()
 
 
     folder = drop_down['values'][drop_down.current()]
@@ -87,7 +89,7 @@ def confirmSelection():
         folder
     except:
         raise TypeError("The input failed.")
-        exit()
+        closeProgram()
     
     root.destroy()
 
@@ -96,3 +98,7 @@ def confirmSelection():
     fixArchive(siren_path)
     importSiren(siren_path)
     run(info.fivem_exe)
+
+def closeProgram(): 
+    root.destroy()
+    quit()
