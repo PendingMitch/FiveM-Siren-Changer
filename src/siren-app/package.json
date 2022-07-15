@@ -1,6 +1,6 @@
 {
-  "name": "my-app",
-  "productName": "my-app",
+  "name": "siren-app",
+  "productName": "siren-app",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": "src/index.js",
@@ -24,7 +24,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "my_app"
+            "name": "siren_app"
           }
         },
         {
@@ -45,7 +45,6 @@
     }
   },
   "dependencies": {
-    "bulma": "^0.9.4",
     "electron-squirrel-startup": "^1.0.0"
   },
   "devDependencies": {
