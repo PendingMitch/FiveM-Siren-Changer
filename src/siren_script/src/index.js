@@ -77,13 +77,24 @@ function moveSirenToGTA(siren) {
       return;
     }
     console.log(`stdout: ${stdout}`);
-  });
+    fs.copyFile(sirenDictPath, sirenFinalLocation, (err) => {
+      if (err) throw err;
+    });
+    exec("E:/Games/FiveM/FiveM.exe", (error, stdout, stderr) => {
+      if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+    })
+    app.quit();
+  })
 
-  console.log({ sirenDictPath, sirenFinalLocation });
-
-  fs.copyFile(sirenDictPath, sirenFinalLocation, (err) => {
-    if (err) throw err;
-  });
+  
 }
 
 // In this file you can include the rest of your app's specific main process

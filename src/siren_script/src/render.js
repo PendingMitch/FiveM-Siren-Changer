@@ -8,6 +8,8 @@ let confirm = () => {
   CONFIRM_BUTTON.onclick = "";
   console.log("Confirm button diasbled");
 
+  document.getElementById("loading").style.display = "block";
+
   let chosenOption = SIREN_SELECT.value;
   window.api.send("toMain", { type: "SUBMIT", siren_type: chosenOption });
 };
