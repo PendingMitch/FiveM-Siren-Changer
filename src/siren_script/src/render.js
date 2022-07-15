@@ -1,13 +1,12 @@
 const SIREN_SELECT = document.getElementById("siren_select");
-const CONFIRM_BUTTON = document.getElementById("confirm_button")
-
+const CONFIRM_BUTTON = document.getElementById("confirm_button");
 
 let confirm = () => {
-  SIREN_SELECT.disabled = true
-  console.log("Selection box diasbled")
+  SIREN_SELECT.disabled = true;
+  console.log("Selection box diasbled");
 
-  CONFIRM_BUTTON.onclick = ""
-  console.log("Confirm button diasbled")
+  CONFIRM_BUTTON.onclick = "";
+  console.log("Confirm button diasbled");
 
   let chosenOption = SIREN_SELECT.value;
   window.api.send("toMain", { type: "SUBMIT", siren_type: chosenOption });
