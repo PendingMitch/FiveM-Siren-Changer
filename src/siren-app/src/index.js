@@ -17,7 +17,7 @@ const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     autoHideMenuBar: true,
-    // resizable: false,
+    icon: 'siren.ico',
     width: 600,
     height: 200,
     webPreferences: {
@@ -25,7 +25,6 @@ const createWindow = () => {
       nodeIntegration: true,
     },
   });
-  mainWindow.setIcon('siren.ico')
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, "index.html"));

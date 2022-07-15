@@ -2,7 +2,8 @@
   "name": "siren-app",
   "productName": "siren-app",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "icon": "D:/Projects/Sirens/Script/src/siren-app/siren.ico",
+  "description": "Siren changer for FiveM",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -24,7 +25,8 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "siren_app"
+            "name": "siren_app",
+            "icon": "D:/Projects/Sirens/Script/src/siren-app/siren.ico"
           }
         },
         {
