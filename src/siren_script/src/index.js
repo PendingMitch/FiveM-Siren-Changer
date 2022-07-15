@@ -127,5 +127,9 @@ ipcMain.on("toMain", (event, args) => {
         moveSirenToGTA(args.siren_type);
       }
     }
+  } else if (args.type == "CANCEL") {
+    app.quit();
+  } else {
+    console.warn("API Attempt for unknown type", {args})
   }
 });
