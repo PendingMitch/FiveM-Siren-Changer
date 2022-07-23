@@ -1,9 +1,25 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const { exec } = require("child_process");
+const {factory} = require("electron-json-config")
 
-const SIRENS_LOCATION = "D:/Projects/Sirens/Script/Sirens";
-const GTA_LOCATION = "D:/Games/Steam/steamapps/common/Grand Theft Auto V";
+let config_done = false
+const config = factory();
+if (config.get("GTA_LOCATION") == undefined || config.get("GTA_LOCATION") == "NOT SET") {
+  config.set("GTA_LOCATION", "NOT SET")
+  config.set("SIRENS_LOCATION", "NOT SET")
+} else {
+  console.log("Config Exists")
+  config_done = true
+}
+
+
+const {SIRENS_LOCATION, GTA_LOCATION} = config.all()
+
+
+
+// const SIRENS_LOCATION = "D:/Projects/Sirens/Sirens";
+// const GTA_LOCATION = "D:/Games/Steam/steamapps/common/Grand Theft Auto V";
 
 let mainWindow;
 
@@ -12,6 +28,7 @@ let mainWindow;
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
+
 
 const createWindow = () => {
   // Create the browser window.
@@ -26,9 +43,14 @@ const createWindow = () => {
     },
   });
 
-  // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, "index.html"));
-
+  if (config_done == true) {
+    // and load the index.html of the app.
+    mainWindow.loadFile(path.join(__dirname, "index.html"));
+  } else {
+      // and load the index.html of the app.
+      mainWindow.loadFile(path.join(__dirname, "please_fix.html"));
+  }
+  
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
 };
@@ -142,6 +164,11 @@ ipcMain.on("toMain", (event, args) => {
     }
   } else if (args.type == "CANCEL") {
     app.quit();
+  } else if (args.type == "CONFIG_DATA") { 
+    mainWindow.webContents.send("fromMain", {
+      header: "CONFIG_DATA",
+      response: app.getPath('userData') + '/config.json',
+    });
   } else {
     console.warn("API Attempt for unknown type", {args})
   }

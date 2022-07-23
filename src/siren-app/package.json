@@ -2,7 +2,6 @@
   "name": "siren-app",
   "productName": "siren-app",
   "version": "1.0.0",
-  "icon": "D:/Projects/Sirens/Script/src/siren-app/siren.ico",
   "description": "Siren changer for FiveM",
   "main": "src/index.js",
   "scripts": {
@@ -20,13 +19,14 @@
   "license": "MIT",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "D:/Projects/Code/Code/HTML/Siren-Changing-Script-FiveM/src/siren-app/siren.ico"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "siren_app",
-            "icon": "D:/Projects/Sirens/Script/src/siren-app/siren.ico"
+            "name": "siren_app"
           }
         },
         {
@@ -47,6 +47,8 @@
     }
   },
   "dependencies": {
+    "electron-forge": "^5.2.4",
+    "electron-json-config": "^2.0.0-beta",
     "electron-squirrel-startup": "^1.0.0"
   },
   "devDependencies": {

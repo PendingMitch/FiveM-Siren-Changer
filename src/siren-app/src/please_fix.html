@@ -1,0 +1,27 @@
+<style>
+  * {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+    text-align: center;
+  }
+  
+  p {
+    width: 100%;
+  }
+</style>
+
+<p>Please make sure you have changed the locations in the config.json</p>
+<p id="config_display">Hi</p>
+
+<script>
+  window.api.receive("fromMain", (data) => {
+  if (data.header != "CONFIG_DATA") {
+    return;
+  }
+  console.log(data);
+
+  let config_display = document.getElementById("config_display");
+  config_display.innerHTML = data.response;
+});
+window.api.send("toMain", { type: "CONFIG_DATA" });
+</script>
