@@ -1,15 +1,33 @@
 {
-  "name": "siren_app2",
-  "productName": "siren_app2",
-  "version": "1.1.0",
-  "description": "My Electron application description",
+  "name": "siren_app",
+  "productName": "Siren Changer",
+  "version": "1.2.0",
+  "description": "Siren changer for FiveM",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "lint": "echo \"No linting configured\"",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "SirenChanger",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "D:/Windows Files/Documents/GitHub/Siren-Changing-Script---FiveM/src/siren_app/siren.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "installerIcon": "D:/Windows Files/Documents/GitHub/Siren-Changing-Script---FiveM/src/siren_app/siren.ico",
+      "uninstallerIcon": "D:/Windows Files/Documents/GitHub/Siren-Changing-Script---FiveM/src/siren_app/siren.ico",
+      "uninstallDisplayName": "Siren Changer - Uninstaller",
+      "license": "D:/Windows Files/Documents/GitHub/Siren-Changing-Script---FiveM/LICENSE",
+      "allowToChangeInstallationDirectory": true
+    }
   },
   "keywords": [],
   "author": {
@@ -19,12 +37,14 @@
   "license": "MIT",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "D:/Windows Files/Documents/GitHub/Siren-Changing-Script---FiveM/src/siren_app/siren.ico"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "siren_app2"
+            "name": "siren_app"
           }
         },
         {
@@ -45,6 +65,7 @@
     }
   },
   "dependencies": {
+    "electron-json-config": "^2.0.0",
     "electron-squirrel-startup": "^1.0.0"
   },
   "devDependencies": {
@@ -53,6 +74,7 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.66",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.66",
     "@electron-forge/maker-zip": "^6.0.0-beta.66",
-    "electron": "20.1.4"
+    "electron": "20.1.4",
+    "electron-builder": "^23.3.3"
   }
 }
