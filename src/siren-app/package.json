@@ -1,7 +1,7 @@
 {
   "name": "siren-app",
   "productName": "siren-app",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Siren changer for FiveM",
   "main": "src/index.js",
   "scripts": {
