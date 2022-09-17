@@ -26,8 +26,6 @@ if (ConfigOpen()) {
   config_done = true;
 }
 
-console.log(config.all());
-
 const { SIRENS_LOCATION, GTA_LOCATION, FIVEM_LOCATION } = config.all();
 
 let mainWindow;
@@ -162,7 +160,7 @@ ipcMain.on("toMain", (event, args) => {
   } else if (args.type == "CONFIG_DATA") {
     mainWindow.webContents.send("fromMain", {
       header: "CONFIG_DATA",
-      response: app.getPath("userData") + "/config.json",
+      response: path.join(app.getPath("userData"), "config.json"),
     });
   } else {
     console.warn("API Attempt for unknown type", { args });
