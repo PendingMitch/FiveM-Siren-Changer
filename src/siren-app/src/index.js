@@ -1,25 +1,34 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const { exec } = require("child_process");
-const {factory} = require("electron-json-config")
+const { factory } = require("electron-json-config");
 
-let config_done = false
+const CONFIG_OPTIONS = ["GTA_LOCATION", "SIRENS_LOCATION", "FIVEM_LOCATION"];
+let config_done = false;
 const config = factory();
-if (config.get("GTA_LOCATION") == undefined || config.get("GTA_LOCATION") == "NOT SET") {
-  config.set("GTA_LOCATION", "NOT SET")
-  config.set("SIRENS_LOCATION", "NOT SET")
-} else {
-  console.log("Config Exists")
-  config_done = true
+
+function ConfigOpen() {
+  for (let i = 0; i < CONFIG_OPTIONS.length; i++) {
+    if (config.get(CONFIG_OPTIONS[i]) == undefined || config.get(CONFIG_OPTIONS[i]) == "NOT SET") {
+      return true;
+    }
+  }
+
+  return false;
 }
 
+if (ConfigOpen()) {
+  CONFIG_OPTIONS.forEach((x) => {
+    config.set(x, "NOT SET");
+  });
+} else {
+  console.log("Config Exists");
+  config_done = true;
+}
 
-const {SIRENS_LOCATION, GTA_LOCATION} = config.all()
+console.log(config.all());
 
-
-
-// const SIRENS_LOCATION = "D:/Projects/Sirens/Sirens";
-// const GTA_LOCATION = "D:/Games/Steam/steamapps/common/Grand Theft Auto V";
+const { SIRENS_LOCATION, GTA_LOCATION, FIVEM_LOCATION } = config.all();
 
 let mainWindow;
 
@@ -29,12 +38,11 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-
 const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     autoHideMenuBar: true,
-    icon: 'siren.ico',
+    icon: "siren.ico",
     width: 600,
     height: 200,
     webPreferences: {
@@ -47,10 +55,10 @@ const createWindow = () => {
     // and load the index.html of the app.
     mainWindow.loadFile(path.join(__dirname, "index.html"));
   } else {
-      // and load the index.html of the app.
-      mainWindow.loadFile(path.join(__dirname, "please_fix.html"));
+    // and load the index.html of the app.
+    mainWindow.loadFile(path.join(__dirname, "please_fix.html"));
   }
-  
+
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
 };
@@ -79,18 +87,10 @@ app.on("activate", () => {
 
 function moveSirenToGTA(siren) {
   let sirenDictPath = path.join(SIRENS_LOCATION, siren, "RESIDENT.rpf");
-  let sirenFinalLocation = path.join(
-    GTA_LOCATION,
-    "x64/audio/sfx",
-    "RESIDENT.rpf"
-  );
+  let sirenFinalLocation = path.join(GTA_LOCATION, "x64/audio/sfx", "RESIDENT.rpf");
 
-  const ARCHIVE_FIX_LOCATION = path.join(
-    __dirname,
-    "/ArchiveFix/ArchiveFix.exe"
-  );
+  const ARCHIVE_FIX_LOCATION = path.join(__dirname, "/ArchiveFix/ArchiveFix.exe");
   let exec_string = '"' + ARCHIVE_FIX_LOCATION + '" "' + sirenDictPath + '"';
-  console.log(exec_string);
   exec(exec_string, (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`);
@@ -104,7 +104,7 @@ function moveSirenToGTA(siren) {
     fs.copyFile(sirenDictPath, sirenFinalLocation, (err) => {
       if (err) throw err;
     });
-    exec("E:/Games/FiveM/FiveM.exe", (error, stdout, stderr) => {
+    exec(path.join(FIVEM_LOCATION, "FiveM.exe"), (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`);
         return;
@@ -114,11 +114,9 @@ function moveSirenToGTA(siren) {
         return;
       }
       console.log(`stdout: ${stdout}`);
-    })
+    });
     app.quit();
-  })
-
-  
+  });
 }
 
 // In this file you can include the rest of your app's specific main process
@@ -127,13 +125,10 @@ ipcMain.on("toMain", (event, args) => {
   if (args.type == "REQUEST_SIRENS") {
     fs = require("fs");
 
+    console.log(SIRENS_LOCATION);
     var folders = fs.readdirSync(SIRENS_LOCATION);
     for (siren_index in folders) {
-      if (
-        !fs.existsSync(
-          path.join(SIRENS_LOCATION, folders[siren_index], "RESIDENT.rpf")
-        )
-      ) {
+      if (!fs.existsSync(path.join(SIRENS_LOCATION, folders[siren_index], "RESIDENT.rpf"))) {
         folders.splice(siren_index, 1);
       }
     }
@@ -164,12 +159,12 @@ ipcMain.on("toMain", (event, args) => {
     }
   } else if (args.type == "CANCEL") {
     app.quit();
-  } else if (args.type == "CONFIG_DATA") { 
+  } else if (args.type == "CONFIG_DATA") {
     mainWindow.webContents.send("fromMain", {
       header: "CONFIG_DATA",
-      response: app.getPath('userData') + '/config.json',
+      response: app.getPath("userData") + "/config.json",
     });
   } else {
-    console.warn("API Attempt for unknown type", {args})
+    console.warn("API Attempt for unknown type", { args });
   }
 });
