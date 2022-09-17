@@ -1,8 +1,8 @@
 {
-  "name": "siren-app",
-  "productName": "siren-app",
+  "name": "siren_app2",
+  "productName": "siren_app2",
   "version": "1.1.0",
-  "description": "Siren changer for FiveM",
+  "description": "My Electron application description",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -19,14 +19,12 @@
   "license": "MIT",
   "config": {
     "forge": {
-      "packagerConfig": {
-        "icon": "D:/Projects/Code/Code/HTML/Siren-Changing-Script-FiveM/src/siren-app/siren.ico"
-      },
+      "packagerConfig": {},
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "siren_app"
+            "name": "siren_app2"
           }
         },
         {
@@ -47,16 +45,14 @@
     }
   },
   "dependencies": {
-    "electron-forge": "^5.2.4",
-    "electron-json-config": "^2.0.0-beta",
     "electron-squirrel-startup": "^1.0.0"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.64",
-    "@electron-forge/maker-deb": "^6.0.0-beta.64",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.64",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.64",
-    "@electron-forge/maker-zip": "^6.0.0-beta.64",
-    "electron": "19.0.8"
+    "@electron-forge/cli": "^6.0.0-beta.66",
+    "@electron-forge/maker-deb": "^6.0.0-beta.66",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.66",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.66",
+    "@electron-forge/maker-zip": "^6.0.0-beta.66",
+    "electron": "20.1.4"
   }
 }
