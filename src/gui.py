@@ -19,20 +19,22 @@ def createInput():
 
     tkinter.Label(text="").pack() # whitespace
     array = filesInDirectory(info.file_path, info.file_end)
-    global drop_down
-    drop_down = ttk.Combobox(root, value=array, width=40)
-    drop_down.current(0)
-    drop_down.pack()
 
-    print(drop_down.current())
-    
-    tkinter.Label(text="").pack() # whitespace
-    refresh_button = tkinter.Button(root, text="Refresh", command=updateList).pack()
-    tkinter.Label(text="").pack() # whitespace
+    if len(array) == 0:
+        tkinter.Label(text="ERROR: There must be at least 1 Siren pack with 'RESIDENT.rpf'").pack()
+    else:
+        global drop_down
+        drop_down = ttk.Combobox(root, value=[], width=40)
+        updateList()
+        drop_down.pack()
+        
+        tkinter.Label(text="").pack() # whitespace
+        refresh_button = tkinter.Button(root, text="Refresh", command=updateList).pack()
+        tkinter.Label(text="").pack() # whitespace
 
-    ok_button = tkinter.Button(root, text="Confirm", command=confirmSelection).pack()
-    cancel_button = tkinter.Button(root, text="Cancel", command=closeProgram).pack()
-    
+        ok_button = tkinter.Button(root, text="Confirm", command=confirmSelection).pack()
+        cancel_button = tkinter.Button(root, text="Cancel", command=closeProgram).pack()
+        
     root.mainloop()
     return "Window destroyed"
 
