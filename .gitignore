@@ -2,7 +2,6 @@ Sirens/*
 !Sirens/Example*
 src/Sirens/*
 !src/Sirens/Example*
-test
 __pycache__
 
 dist
