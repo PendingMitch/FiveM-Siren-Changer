@@ -1,6 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { exec } = require("child_process");
+const { ipcRenderer } = require('electron');
 
 const SIREN_LOCATION = `D:\\Projects\\Sirens\\Sirens`;
 const GTA_LOCATION = String.raw`D:\Games\Steam\steamapps\common\Grand Theft Auto V`;
@@ -37,10 +38,11 @@ window.addEventListener("DOMContentLoaded", () => {
         }
         RunArchiveFix()
 
-        const RunFiveM = () => {
+        const RunFiveM = async () => {
             exec(`${FIVEM_LOCATION}`)
         }
         RunFiveM()
+        ipcRenderer.invoke('quit-app');
     };
     document.getElementById("confirm_button").addEventListener("click", ConfirmButton);
 
