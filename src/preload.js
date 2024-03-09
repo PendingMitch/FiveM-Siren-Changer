@@ -9,18 +9,32 @@ const RESIDENT_RPF_LOCATION = path.join(GTA_LOCATION, "x64", "audio", "sfx", "RE
 const ARCHIVE_FIXER_LOCATION = path.join(__dirname, "ArchiveFix", "ArchiveFix.exe")
 const FIVEM_LOCATION = String.raw`E:\Games\FiveM\FiveM.exe`
 
-var sirens = fs.readdirSync(SIREN_LOCATION);
-
 window.addEventListener("DOMContentLoaded", () => {
-    const AddSiren = (SirenName) => {
-        const select = document.getElementById("siren_select");
-        let option = document.createElement("option");
-        option.innerHTML = SirenName;
-        option.value = SirenName;
-        select.appendChild(option);
-    };
+    const AddSirensToList = () => {
+        const SelectElement = document.getElementById("siren_select");
+        const ResetSelection = () => {
+            SelectElement.innerHTML = ""
+            let BlankOptionElement = document.createElement("option")
+            BlankOptionElement.selected = true
+            BlankOptionElement.disabled = true
+            BlankOptionElement.value = ""
+            BlankOptionElement.innerText = "Please select a siren"
+            SelectElement.appendChild(BlankOptionElement)
+        }
+        const GetSirens = () => fs.readdirSync(SIREN_LOCATION);
+        const AddSiren = (SirenName) => {
+            let OptionElement = document.createElement("option");
+            OptionElement.innerHTML = SirenName;
+            OptionElement.value = SirenName;
+            SelectElement.appendChild(OptionElement);
+        };
+        
+        ResetSelection()
+        GetSirens().forEach(AddSiren);
+    }
+    AddSirensToList()
 
-    sirens.forEach(AddSiren);
+
 
     const ConfirmButton = (Event) => {
         const GetSiren = () => {
@@ -60,4 +74,6 @@ window.addEventListener("DOMContentLoaded", () => {
         AlertUser(Text, "red", "white")
         throw new Error(Text)
     }
+
+    document.getElementById("refresh_icon").addEventListener("click", AddSirensToList)
 });
