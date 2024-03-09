@@ -34,7 +34,7 @@ window.addEventListener("DOMContentLoaded", () => {
         throw new Error(Text);
     };
 
-    if (ERROR) return ErrorAlert(ERROR)
+    if (CONFIG_ERROR) return ErrorAlert(CONFIG_ERROR)
 
     const AddSirensToList = () => {
         const SelectElement = document.getElementById("siren_select");
