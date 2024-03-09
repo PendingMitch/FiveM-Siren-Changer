@@ -21,7 +21,11 @@ window.addEventListener("DOMContentLoaded", () => {
     sirens.forEach(AddSiren);
 
     const ConfirmButton = (Event) => {
-        const GetSiren = () => path.join(SIREN_LOCATION, document.getElementById("siren_select").value, "RESIDENT.rpf");
+        const GetSiren = () => {
+            var FilePath = path.join(SIREN_LOCATION, document.getElementById("siren_select").value, "RESIDENT.rpf");
+            if (fs.existsSync(FilePath)) return FilePath
+            else throw new Error(`File Path ${FilePath} does not exist.`)
+        };
         const MoveToGTA = (SirenLocation) => {
             fs.copyFileSync(SirenLocation, RESIDENT_RPF_LOCATION);
         };
