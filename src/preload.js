@@ -47,7 +47,12 @@ window.addEventListener("DOMContentLoaded", () => {
             BlankOptionElement.innerText = "Please select a siren";
             SelectElement.appendChild(BlankOptionElement);
         };
-        const GetSirens = () => fs.readdirSync(SIREN_LOCATION);
+        const GetSirens = () => {
+            try { var Sirens = fs.readdirSync(SIREN_LOCATION) }
+            catch { return -1 }
+
+            return Sirens.filter(x => fs.existsSync(path.join(SIREN_LOCATION, x, "RESIDENT.rpf")))
+        };
         const AddSiren = (SirenName) => {
             let OptionElement = document.createElement("option");
             OptionElement.innerHTML = SirenName;
@@ -56,7 +61,10 @@ window.addEventListener("DOMContentLoaded", () => {
         };
 
         ResetSelection();
-        GetSirens().forEach(AddSiren);
+        var Sirens = GetSirens()
+        if (Sirens == -1) ErrorAlert(`Location "${SIREN_LOCATION}" does not exist. Please ensure that you have the correct location in 'config.json'`)
+        else if (Sirens.length <= 0) ErrorAlert(`No siren files could be found in "${SIREN_LOCATION}". Please ensure that you have the correct location in 'config.json', and all siren folders has a RESIDENT.rpf file.`)
+        else Sirens.forEach(AddSiren);
     };
     AddSirensToList();
 
