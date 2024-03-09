@@ -82,7 +82,8 @@ window.addEventListener("DOMContentLoaded", () => {
         };
 
         const MoveToGTA = (SirenLocation) => {
-            fs.copyFileSync(SirenLocation, RESIDENT_RPF_LOCATION);
+            if (fs.existsSync(RESIDENT_RPF_LOCATION)) fs.copyFileSync(SirenLocation, RESIDENT_RPF_LOCATION);
+            else ErrorAlert(`Location ${RESIDENT_RPF_LOCATION} does not exist.`)
         };
         MoveToGTA(GetSiren());
 
@@ -94,7 +95,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
         const RunFiveM = async () => {
             AlertUser(`Standby we're running FiveM.`, "lime", "white");
-            exec(`${FIVEM_LOCATION}`);
+            if (fs.existsSync(FIVEM_LOCATION)) exec(`${FIVEM_LOCATION}`); 
+            else ErrorAlert(`Location ${FIVEM_LOCATION} does not exist`)
         };
         RunFiveM();
 
