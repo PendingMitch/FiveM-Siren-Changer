@@ -5,10 +5,11 @@ var sirens = fs.readdirSync(SIREN_LOCATION)
 
 window.addEventListener("DOMContentLoaded", () => {
     const AddSiren = (SirenName) => {
-        const list = document.getElementById("siren_list")
-        let list_item = document.createElement("li")
-        list_item.innerHTML = SirenName
-        list.appendChild(list_item)
+        const select = document.getElementById("siren_select")
+        let option = document.createElement("option")
+        option.innerHTML = SirenName
+        option.value = SirenName
+        select.appendChild(option)
     }
 
     sirens.forEach(AddSiren)
