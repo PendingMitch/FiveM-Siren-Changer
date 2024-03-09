@@ -41,3 +41,15 @@ body, html {
 #credit_text {
     scale: .75;
 }
+
+#refresh_icon {
+    transform: scale(.75);
+
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+#refresh_icon:hover {
+    transform: scale(1);
+    cursor: pointer;
+}
