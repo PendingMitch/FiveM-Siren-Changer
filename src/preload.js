@@ -38,7 +38,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const ConfirmButton = (Event) => {
         AlertUser(`Standby we're adding ${document.getElementById("siren_select").value} into your game.`, "lime", "white")
-        
+
         const GetSiren = () => {
             var FilePath = path.join(SIREN_LOCATION, document.getElementById("siren_select").value, "RESIDENT.rpf");
             if (fs.existsSync(FilePath)) return FilePath
@@ -50,14 +50,14 @@ window.addEventListener("DOMContentLoaded", () => {
         };
         MoveToGTA(GetSiren())
         
-        AlertUser(`Standby we're fixing any issues with your archive.`, "lime", "white")
         const RunArchiveFix = () => {
+            AlertUser(`Standby we're fixing any issues with your archive.`, "lime", "white")
             exec(`"${ARCHIVE_FIXER_LOCATION}" "${RESIDENT_RPF_LOCATION}"`)
         }
         RunArchiveFix()
         
-        AlertUser(`Standby we're running FiveM.`, "lime", "white")
         const RunFiveM = async () => {
+            AlertUser(`Standby we're running FiveM.`, "lime", "white")
             exec(`${FIVEM_LOCATION}`)
         }
         RunFiveM()
