@@ -3,11 +3,39 @@ const path = require("node:path");
 const { exec } = require("child_process");
 const { ipcRenderer } = require("electron");
 
-const { SIREN_LOCATION, GTA_LOCATION, FIVEM_LOCATION } = require("./config.json");
-const RESIDENT_RPF_LOCATION = path.join(GTA_LOCATION, "x64", "audio", "sfx", "RESIDENT.rpf");
-const ARCHIVE_FIXER_LOCATION = path.join(__dirname, "ArchiveFix", "ArchiveFix.exe");
+const GetConfig = () => {
+    try {
+        const File = fs.readFileSync("./config.jsson");
+        const CONFIG = JSON.parse(File);
+        return {
+            ...CONFIG,
+            RESIDENT_RPF_LOCATION: path.join(CONFIG.GTA_LOCATION, "x64", "audio", "sfx", "RESIDENT.rpf"),
+            ARCHIVE_FIXER_LOCATION: path.join(__dirname, "ArchiveFix", "ArchiveFix.exe")
+        }
+    } catch {
+        return { CONFIG_ERROR: "Unable to find 'config.json' file" };
+    }
+};
+const { SIREN_LOCATION, GTA_LOCATION, FIVEM_LOCATION, RESIDENT_RPF_LOCATION, ARCHIVE_FIXER_LOCATION, CONFIG_ERROR } = GetConfig();
 
 window.addEventListener("DOMContentLoaded", () => {
+    const AlertUser = (AlertNotification, BackgroundColour, ForegroundColour) => {
+        const AlertBox = document.getElementById("alert_box");
+        AlertBox.style.display = "flex";
+        AlertBox.style.padding = ".5em";
+        const AlertText = document.getElementById("alert_text");
+
+        AlertText.innerText = AlertNotification;
+        AlertBox.style.backgroundColor = BackgroundColour;
+        AlertBox.style.color = ForegroundColour;
+    };
+    const ErrorAlert = (Text) => {
+        AlertUser(Text, "red", "white");
+        throw new Error(Text);
+    };
+
+    if (ERROR) return ErrorAlert(ERROR)
+
     const AddSirensToList = () => {
         const SelectElement = document.getElementById("siren_select");
         const ResetSelection = () => {
@@ -67,21 +95,6 @@ window.addEventListener("DOMContentLoaded", () => {
         }, 5000);
     };
     document.getElementById("confirm_button").addEventListener("click", ConfirmButton);
-
-    const AlertUser = (AlertNotification, BackgroundColour, ForegroundColour) => {
-        const AlertBox = document.getElementById("alert_box");
-        AlertBox.style.display = "flex";
-        AlertBox.style.padding = ".5em";
-        const AlertText = document.getElementById("alert_text");
-
-        AlertText.innerText = AlertNotification;
-        AlertBox.style.backgroundColor = BackgroundColour;
-        AlertBox.style.color = ForegroundColour;
-    };
-    const ErrorAlert = (Text) => {
-        AlertUser(Text, "red", "white");
-        throw new Error(Text);
-    };
 
     document.getElementById("refresh_icon").addEventListener("click", AddSirensToList);
 });
