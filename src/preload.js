@@ -30,7 +30,7 @@ window.addEventListener("DOMContentLoaded", () => {
         AlertBox.style.color = ForegroundColour;
     };
     const ErrorAlert = (Text) => {
-        AlertUser(Text, "red", "white");
+        AlertUser(`ERROR: ${Text}`, "red", "white");
         throw new Error(Text);
     };
 
