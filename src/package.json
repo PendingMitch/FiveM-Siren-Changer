@@ -7,5 +7,8 @@
     "test": "electron ."
   },
   "author": "PendingMitch",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^29.1.1"
+  }
 }
