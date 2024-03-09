@@ -6,6 +6,7 @@ const SIREN_LOCATION = `D:\\Projects\\Sirens\\Sirens`;
 const GTA_LOCATION = String.raw`D:\Games\Steam\steamapps\common\Grand Theft Auto V`;
 const RESIDENT_RPF_LOCATION = path.join(GTA_LOCATION, "x64", "audio", "sfx", "RESIDENT.rpf");
 const ARCHIVE_FIXER_LOCATION = path.join(__dirname, "ArchiveFix", "ArchiveFix.exe")
+const FIVEM_LOCATION = String.raw`E:\Games\FiveM\FiveM.exe`
 
 var sirens = fs.readdirSync(SIREN_LOCATION);
 
@@ -36,6 +37,10 @@ window.addEventListener("DOMContentLoaded", () => {
         }
         RunArchiveFix()
 
+        const RunFiveM = () => {
+            exec(`${FIVEM_LOCATION}`)
+        }
+        RunFiveM()
     };
     document.getElementById("confirm_button").addEventListener("click", ConfirmButton);
 
