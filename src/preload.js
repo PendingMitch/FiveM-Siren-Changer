@@ -5,7 +5,7 @@ const { ipcRenderer } = require("electron");
 
 const GetConfig = () => {
     try {
-        const File = fs.readFileSync("./config.jsson");
+        const File = fs.readFileSync("./config.json");
         const CONFIG = JSON.parse(File);
         return {
             ...CONFIG,
