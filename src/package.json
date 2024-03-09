@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "electron .",
-    "build": "npx electron-packager ./ PendingSirenChanger"
+    "build": "npx electron-packager ./ PendingSirenChanger --icon './Icon.ico'"
   },
   "author": "PendingMitch",
   "license": "MIT",
