@@ -1,0 +1,11 @@
+{
+  "name": "siren-changer",
+  "version": "0.0.1",
+  "description": "A siren changing application for FiveM",
+  "main": "index.js",
+  "scripts": {
+    "test": "electron ."
+  },
+  "author": "PendingMitch",
+  "license": "ISC"
+}
