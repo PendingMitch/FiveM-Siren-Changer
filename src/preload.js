@@ -48,6 +48,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const AlertUser = (AlertNotification, BackgroundColour, ForegroundColour) => {
         const AlertBox = document.getElementById("alert_box")
+        AlertBox.style.display = "flex"
+        AlertBox.style.padding = ".5em"
         const AlertText = document.getElementById("alert_text")
 
         AlertText.innerText = AlertNotification
