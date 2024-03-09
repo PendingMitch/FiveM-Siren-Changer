@@ -69,14 +69,18 @@ window.addEventListener("DOMContentLoaded", () => {
     AddSirensToList();
 
     const ConfirmButton = (Event) => {
+        const SELECTION = document.getElementById("siren_select").value
+        const Continue = confirm(`You are about to install ${SELECTION} into your game.\n\nPlease ensure that you've closed all processes of GTA V, and FiveM and that you're not using any application to open the RESIDENT.rpf file currently.`, "pending")
+        if (!Continue) return AlertUser("Siren Installation Cancelled", "orange", "white")
+
         AlertUser(
-            `Standby we're adding ${document.getElementById("siren_select").value} into your game.`,
+            `Standby we're adding ${SELECTION} into your game.`,
             "lime",
             "white"
         );
 
         const GetSiren = () => {
-            var FilePath = path.join(SIREN_LOCATION, document.getElementById("siren_select").value, "RESIDENT.rpf");
+            var FilePath = path.join(SIREN_LOCATION, SELECTION, "RESIDENT.rpf");
             if (fs.existsSync(FilePath)) return FilePath;
             else ErrorAlert(`File Path ${FilePath} does not exist.`);
         };
