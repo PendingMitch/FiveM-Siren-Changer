@@ -37,35 +37,43 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
     const ConfirmButton = (Event) => {
+        AlertUser(`Standby we're adding ${document.getElementById("siren_select").value} into your game.`, "lime", "white")
+        
         const GetSiren = () => {
             var FilePath = path.join(SIREN_LOCATION, document.getElementById("siren_select").value, "RESIDENT.rpf");
             if (fs.existsSync(FilePath)) return FilePath
             else ErrorAlert(`File Path ${FilePath} does not exist.`)
         };
+        
         const MoveToGTA = (SirenLocation) => {
             fs.copyFileSync(SirenLocation, RESIDENT_RPF_LOCATION);
         };
         MoveToGTA(GetSiren())
-
+        
+        AlertUser(`Standby we're fixing any issues with your archive.`, "lime", "white")
         const RunArchiveFix = () => {
             exec(`"${ARCHIVE_FIXER_LOCATION}" "${RESIDENT_RPF_LOCATION}"`)
         }
         RunArchiveFix()
-
+        
+        AlertUser(`Standby we're running FiveM.`, "lime", "white")
         const RunFiveM = async () => {
             exec(`${FIVEM_LOCATION}`)
         }
         RunFiveM()
-        ipcRenderer.invoke('quit-app');
+
+        setTimeout(() => {
+            ipcRenderer.invoke('quit-app');
+        }, 5000)
     };
     document.getElementById("confirm_button").addEventListener("click", ConfirmButton);
-
+    
     const AlertUser = (AlertNotification, BackgroundColour, ForegroundColour) => {
         const AlertBox = document.getElementById("alert_box")
         AlertBox.style.display = "flex"
         AlertBox.style.padding = ".5em"
         const AlertText = document.getElementById("alert_text")
-
+        
         AlertText.innerText = AlertNotification
         AlertBox.style.backgroundColor = BackgroundColour
         AlertBox.style.color = ForegroundColour
@@ -74,6 +82,6 @@ window.addEventListener("DOMContentLoaded", () => {
         AlertUser(Text, "red", "white")
         throw new Error(Text)
     }
-
+    
     document.getElementById("refresh_icon").addEventListener("click", AddSirensToList)
 });
