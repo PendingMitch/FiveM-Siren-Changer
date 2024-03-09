@@ -4,7 +4,8 @@
   "description": "A siren changing application for FiveM",
   "main": "index.js",
   "scripts": {
-    "test": "electron ."
+    "test": "electron .",
+    "build": "npx electron-packager ./ PendingSirenChanger"
   },
   "author": "PendingMitch",
   "license": "MIT",
