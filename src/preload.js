@@ -24,7 +24,7 @@ window.addEventListener("DOMContentLoaded", () => {
         const GetSiren = () => {
             var FilePath = path.join(SIREN_LOCATION, document.getElementById("siren_select").value, "RESIDENT.rpf");
             if (fs.existsSync(FilePath)) return FilePath
-            else throw new Error(`File Path ${FilePath} does not exist.`)
+            else ErrorAlert(`File Path ${FilePath} does not exist.`)
         };
         const MoveToGTA = (SirenLocation) => {
             fs.copyFileSync(SirenLocation, RESIDENT_RPF_LOCATION);
@@ -38,4 +38,17 @@ window.addEventListener("DOMContentLoaded", () => {
 
     };
     document.getElementById("confirm_button").addEventListener("click", ConfirmButton);
+
+    const AlertUser = (AlertNotification, BackgroundColour, ForegroundColour) => {
+        const AlertBox = document.getElementById("alert_box")
+        const AlertText = document.getElementById("alert_text")
+
+        AlertText.innerText = AlertNotification
+        AlertBox.style.backgroundColor = BackgroundColour
+        AlertBox.style.color = ForegroundColour
+    }
+    const ErrorAlert = (Text) => {
+        AlertUser(Text, "red", "white")
+        throw new Error(Text)
+    }
 });
