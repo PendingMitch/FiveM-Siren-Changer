@@ -16,7 +16,7 @@ const GetConfig = () => {
         return { CONFIG_ERROR: "Unable to find 'config.json' file" };
     }
 };
-const { SIREN_LOCATION, GTA_LOCATION, FIVEM_LOCATION, RESIDENT_RPF_LOCATION, ARCHIVE_FIXER_LOCATION, CONFIG_ERROR } = GetConfig();
+const { SIREN_LOCATION, GTA_LOCATION, FIVEM_LOCATION, LAUNCH_FIVEM, RESIDENT_RPF_LOCATION, ARCHIVE_FIXER_LOCATION, CONFIG_ERROR } = GetConfig();
 
 window.addEventListener("DOMContentLoaded", () => {
     const AlertUser = (AlertNotification, BackgroundColour, ForegroundColour) => {
@@ -97,12 +97,13 @@ window.addEventListener("DOMContentLoaded", () => {
             AlertUser(`Standby we're running FiveM.`, "lime", "white");
             if (fs.existsSync(FIVEM_LOCATION)) exec(`${FIVEM_LOCATION}`); 
             else ErrorAlert(`Location ${FIVEM_LOCATION} does not exist`)
+            setTimeout(() => {
+                ipcRenderer.invoke("quit-app");
+            }, 5000);
         };
-        RunFiveM();
+        if (LAUNCH_FIVEM) RunFiveM();
+        else AlertUser("Siren loaded into GTA. You've chosen not to launch FiveM", "lime", "white")
 
-        setTimeout(() => {
-            ipcRenderer.invoke("quit-app");
-        }, 5000);
     };
     document.getElementById("confirm_button").addEventListener("click", ConfirmButton);
 
