@@ -6,6 +6,7 @@ const createWindow = () => {
         autoHideMenuBar: true,
         width: 800,
         height: 300,
+        icon: "Icon.ico",
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             nodeIntegration: true,
