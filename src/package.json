@@ -7,5 +7,5 @@
     "test": "electron ."
   },
   "author": "PendingMitch",
-  "license": "ISC"
+  "license": "MIT"
 }
