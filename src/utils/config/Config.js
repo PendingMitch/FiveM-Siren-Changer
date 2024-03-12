@@ -24,6 +24,7 @@ class CONFIG {
     }
 
     static UpdateConfig() {
+        this.ERROR = undefined
         this.GetFullConfig()
         if (!this.ERROR) {
             this.VARS.RESIDENT_RPF_LOCATION = path.join(this.GetConfig("GTA_LOCATION"), "x64", "audio", "sfx", "RESIDENT.rpf")
