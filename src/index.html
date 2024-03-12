@@ -12,19 +12,27 @@
     <div id="alert_box">
         <span id="alert_text"></span>
     </div>
-    <div id="container">
-      <div id="heading_container">
-        <img src="Icon.svg" id="heading_icon">
-        <h1>PendingSirenChanger</h1>
-      </div>
-
-      <div id="select_container">
-        <select name="Sirens" id="siren_select"></select>
-        <img src="./refresh_icon.svg" id="refresh_icon">
-        <button id="confirm_button">Confirm</button>
-      </div>
-
-      <p id="credit_text">This application was created by <a href="https://github.com/pendingmitch" target="_blank">PendingMitch</a> as a part of <a href="https://discord.pendingmitch.dev/" target="_blank">PendingDevelopment</a></p>
+    <div id="heading_container">
+      <img src="Icon.svg" id="heading_icon">
+      <h1>PendingSirenChanger</h1>
     </div>
+    <div id="container">
+      <section id="main">
+        <div id="select_container">
+          <select name="Sirens" id="siren_select"></select>
+          <img src="./refresh_icon.svg" id="refresh_icon">
+          <button id="confirm_button">Confirm</button>
+        </div>
+        <button id="open_config">Open Config</button>
+      </section>
+      <section id="config">
+        <div id="config_vars"></div>
+        <div id="config_buttons">
+          <button id="config_save">Save</button>
+          <button id="config_cancel">Cancel</button>
+        </div>
+      </section>
+    </div>
+    <p id="credit_text">This application was created by <a href="https://github.com/pendingmitch" target="_blank">PendingMitch</a> as a part of <a href="https://discord.pendingmitch.dev/" target="_blank">PendingDevelopment</a></p>
   </body>
 </html>
