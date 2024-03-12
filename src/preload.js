@@ -54,7 +54,6 @@ window.addEventListener("DOMContentLoaded", () => {
         );
 
         const GetSiren = () => {
-            console.log(CONFIG.GetConfig("SIREN_LOCATION"))
             var FilePath = path.join(CONFIG.GetConfig("SIREN_LOCATION"), SELECTION, "RESIDENT.rpf");
             if (fs.existsSync(FilePath)) return FilePath;
             else ErrorAlert(`File Path ${FilePath} does not exist.`);
@@ -68,7 +67,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
         const RunArchiveFix = () => {
             AlertUser(`Standby we're fixing any issues with your archive.`, "lime", "white");
-            console.log(ARCHIVE_FIXER_LOCATION)
             exec(`"${ARCHIVE_FIXER_LOCATION}" "${RESIDENT_RPF_LOCATION}"`);
         };
         RunArchiveFix();
