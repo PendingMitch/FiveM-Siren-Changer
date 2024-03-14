@@ -4,8 +4,7 @@ const { exec } = require("child_process");
 const { ipcRenderer } = require("electron");
 
 const { CONFIG } = require("./utils/config/Config.js");
-const {
-    u } = require("./utils/config/GenerateVars.js");
+const { ConfigMenu } = require("./utils/config/GenerateVars.js");
 const { AddSirensToList } = require("./utils/AddSirensToList.js");
 const { AlertUser, ErrorAlert } = require("./utils/Alert.js");
 
